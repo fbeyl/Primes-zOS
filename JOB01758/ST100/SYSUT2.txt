@@ -1,0 +1,61 @@
+ Passes: 015473984, Time: 005.000, Avg: 0.0000003 (sec/pass), Limit: 000000010, Count: 000000004, Valid: True
+ fvbakel_Cobol;015473984;005000;1;algorithm=base,faithful=no,bits=8
+
+ PRIME found=000000002
+ PRIME found=000000003
+ PRIME found=000000005
+ PRIME found=000000007
+ PRIME found=000000011
+ PRIME found=000000013
+ PRIME found=000000017
+ PRIME found=000000019
+ PRIME found=000000023
+ PRIME found=000000029
+ PRIME found=000000031
+ PRIME found=000000037
+ PRIME found=000000041
+ PRIME found=000000043
+ PRIME found=000000047
+ PRIME found=000000053
+ PRIME found=000000059
+ PRIME found=000000061
+ PRIME found=000000067
+ PRIME found=000000071
+ PRIME found=000000073
+ PRIME found=000000079
+ PRIME found=000000083
+ PRIME found=000000089
+ PRIME found=000000097
+ Passes: 012396199, Time: 005.000, Avg: 0.0000004 (sec/pass), Limit: 000000100, Count: 000000025, Valid: True
+ fvbakel_Cobol;012396199;005000;1;algorithm=base,faithful=no,bits=8
+
+ Passes: 003217629, Time: 005.000, Avg: 0.0000015 (sec/pass), Limit: 000001000, Count: 000000168, Valid: True
+ fvbakel_Cobol;003217629;005000;1;algorithm=base,faithful=no,bits=8
+
+ Passes: 000405657, Time: 005.000, Avg: 0.0000123 (sec/pass), Limit: 000010000, Count: 000001229, Valid: True
+ fvbakel_Cobol;000405657;005000;1;algorithm=base,faithful=no,bits=8
+
+ Passes: 000038104, Time: 005.000, Avg: 0.0001312 (sec/pass), Limit: 000100000, Count: 000009592, Valid: True
+ fvbakel_Cobol;000038104;005000;1;algorithm=base,faithful=no,bits=8
+
+ Passes: 000003064, Time: 005.000, Avg: 0.0016318 (sec/pass), Limit: 001000000, Count: 000078498, Valid: True
+ fvbakel_Cobol;000003064;005000;1;algorithm=base,faithful=no,bits=8
+
+ Passes: 000000233, Time: 005.016, Avg: 0.0215278 (sec/pass), Limit: 010000000, Count: 000664579, Valid: True
+ fvbakel_Cobol;000000233;005016;1;algorithm=base,faithful=no,bits=8
+
+ Passes: 000000014, Time: 005.341, Avg: 0.3815000 (sec/pass), Limit: 100000000, Count: 005761455, Valid: True
+ fvbakel_Cobol;000000014;005341;1;algorithm=base,faithful=no,bits=8
+
+
+Passes: 2777, Time: 5.001000, Avg: 0.001801, Limit: 1000000, Count: 78498, Valid: true
+MansenC;2777;5.001000;1;algorithm=base,faithful=yes
+
+Passes: 4888, Time: 5.000000, Avg: 0.001023, Limit: 1000000, Count: 78498, Valid: true
+MansenC;4888;5.000000;1;algorithm=base,faithful=yes
+
+Passes: 2654, Time: 5.000000, Avg: 0.001884, Limit: 1000000, Count: 78498, Valid: true
+MansenC;2654;5.000000;1;algorithm=base,faithful=yes
+
+Passes: 4575, Time: 5.000000, Avg: 0.001093, Limit: 1000000, Count: 78498, Valid: true
+MansenC;4575;5.000000;1;algorithm=base,faithful=yes

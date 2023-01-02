@@ -1,0 +1,60 @@
+        1 //Z26544X   JOB CLASS=A,                                                JOB01758
+          //             MSGCLASS=H,
+          //             REGION=0M,
+          //             NOTIFY=&SYSUID
+          //*
+          IEFC653I SUBSTITUTION JCL - CLASS=A,MSGCLASS=H,REGION=0M,NOTIFY=Z26544
+        2 //ST010    EXEC PGM=PRIMES,PARM='0 000000010'
+        3 //STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+        4 //SYSOUT   DD DSN=&&TEMP,
+          //            RECFM=VBA,LRECL=259,
+          //            SPACE=(TRK,(5,1),RLSE),
+          //            DISP=(,PASS)
+          //*
+        5 //ST020    EXEC PGM=PRIMES,PARM='1 000000100'
+        6 //STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+        7 //SYSOUT   DD DSN=&&TEMP,
+          //            DISP=(MOD,PASS)
+          //*
+        8 //ST030    EXEC PGM=PRIMES,PARM='0 000001000'
+        9 //STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+       10 //SYSOUT   DD DSN=&&TEMP,
+          //            DISP=(MOD,PASS)
+          //*
+       11 //ST040    EXEC PGM=PRIMES,PARM='0 000010000'
+       12 //STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+       13 //SYSOUT   DD DSN=&&TEMP,
+          //            DISP=(MOD,PASS)
+          //*
+       14 //ST050    EXEC PGM=PRIMES,PARM='0 000100000'
+       15 //STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+       16 //SYSOUT   DD DSN=&&TEMP,
+          //            DISP=(MOD,PASS)
+          //*
+       17 //ST060    EXEC PGM=PRIMES,PARM='0 001000000'
+       18 //STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+       19 //SYSOUT   DD DSN=&&TEMP,
+          //            DISP=(MOD,PASS)
+          //*
+       20 //ST070    EXEC PGM=PRIMES,PARM='0 010000000'
+       21 //STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+       22 //SYSOUT   DD DSN=&&TEMP,
+          //            DISP=(MOD,PASS)
+          //*
+       23 //ST080    EXEC PGM=PRIMES,PARM='0 100000000'
+       24 //STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+       25 //SYSOUT   DD DSN=&&TEMP,
+          //            DISP=(MOD,PASS)
+          //*
+       26 //ST090    EXEC PGM=BPXBATCH,REGION=0M
+       27 //STDOUT   DD DSN=&&TEMP,
+          //            DISP=(MOD,PASS)
+       28 //STDERR   DD SYSOUT=*
+       29 //STDIN    DD *
+       30 //STDPARM  DD *
+          //*
+       31 //ST100    EXEC PGM=ICEGENER
+       32 //SYSUT1   DD DSN=&&TEMP,DISP=SHR
+       33 //SYSUT2   DD SYSOUT=*
+       34 //SYSPRINT DD SYSOUT=*
+       35 //

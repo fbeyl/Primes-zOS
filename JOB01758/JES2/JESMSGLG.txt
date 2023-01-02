@@ -1,0 +1,28 @@
+1                   J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  S V S C J E S 2
+0
+ 08.40.28 JOB01758 ---- MONDAY,    02 JAN 2023 ----
+ 08.40.28 JOB01758  IRR010I  USERID Z26544   IS ASSIGNED TO THIS JOB.
+ 08.40.28 JOB01758  IEF677I WARNING MESSAGE(S) FOR JOB Z26544X  ISSUED
+ 08.40.29 JOB01758  ICH70001I Z26544   LAST ACCESS AT 08:37:15 ON MONDAY, JANUARY 2, 2023
+ 08.40.29 JOB01758  $HASP373 Z26544X  STARTED - INIT 5    - CLASS A        - SYS S0W1
+ 08.40.34 JOB01758  -                                      -----TIMINGS (MINS.)------                          -----PAGING COUNTS----
+ 08.40.34 JOB01758  -STEPNAME PROCSTEP    RC   EXCP   CONN       TCB       SRB  CLOCK          SERV  WORKLOAD  PAGE  SWAP   VIO SWAPS
+ 08.40.34 JOB01758  -ST010                00    246     29       .08       .00     .0           113  BATCH        0     0     0     0
+ 08.40.39 JOB01758  -ST020                00    247     29       .08       .00     .0           107  BATCH        0     0     0     0
+ 08.40.44 JOB01758  -ST030                00    247     30       .08       .00     .0           109  BATCH        0     0     0     0
+ 08.40.49 JOB01758  -ST040                00    247     29       .08       .00     .0           104  BATCH        0     0     0     0
+ 08.40.55 JOB01758  -ST050                00    247     29       .08       .00     .0           108  BATCH        0     0     0     0
+ 08.41.00 JOB01758  -ST060                00    247     30       .08       .00     .0           111  BATCH        0     0     0     0
+ 08.41.05 JOB01758  -ST070                00    247     29       .08       .00     .0           109  BATCH        0     0     0     0
+ 08.41.11 JOB01758  -ST080                00    247     30       .09       .00     .0            90  BATCH        0     0     0     0
+ 08.41.41 JOB01758  -ST090                00    148      2       .00       .00     .5             4  BATCH        0     0     0     0
+ 08.41.41 JOB01758  -ST100                00     20      2       .00       .00     .0             3  BATCH        0     0     0     0
+ 08.41.41 JOB01758  -Z26544X  ENDED.  NAME-                     TOTAL TCB CPU TIME=      .67 TOTAL ELAPSED TIME=   1.2
+ 08.41.41 JOB01758  $HASP395 Z26544X  ENDED - RC=0000
+0------ JES2 JOB STATISTICS ------
+-  02 JAN 2023 JOB EXECUTION DATE
+-           72 CARDS READ
+-          352 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           38 SYSOUT SPOOL KBYTES
+-         1.21 MINUTES EXECUTION TIME
