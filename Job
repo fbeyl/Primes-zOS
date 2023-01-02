@@ -1,0 +1,72 @@
+//Z26544X   JOB CLASS=A,
+//             MSGCLASS=H,
+//             REGION=0M,
+//             NOTIFY=&SYSUID
+//*
+//ST010    EXEC PGM=PRIMES,PARM='0 000000010'
+//STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+//SYSOUT   DD DSN=&&TEMP,
+//            RECFM=VBA,LRECL=259,
+//            SPACE=(TRK,(5,1),RLSE),
+//            DISP=(,PASS)
+//*
+//ST020    EXEC PGM=PRIMES,PARM='1 000000100'
+//STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+//SYSOUT   DD DSN=&&TEMP,
+//            DISP=(MOD,PASS)
+//*
+//ST030    EXEC PGM=PRIMES,PARM='0 000001000'
+//STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+//SYSOUT   DD DSN=&&TEMP,
+//            DISP=(MOD,PASS)
+//*
+//ST040    EXEC PGM=PRIMES,PARM='0 000010000'
+//STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+//SYSOUT   DD DSN=&&TEMP,
+//            DISP=(MOD,PASS)
+//*
+//ST050    EXEC PGM=PRIMES,PARM='0 000100000'
+//STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+//SYSOUT   DD DSN=&&TEMP,
+//            DISP=(MOD,PASS)
+//*
+//ST060    EXEC PGM=PRIMES,PARM='0 001000000'
+//STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+//SYSOUT   DD DSN=&&TEMP,
+//            DISP=(MOD,PASS)
+//*
+//ST070    EXEC PGM=PRIMES,PARM='0 010000000'
+//STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+//SYSOUT   DD DSN=&&TEMP,
+//            DISP=(MOD,PASS)
+//*
+//ST080    EXEC PGM=PRIMES,PARM='0 100000000'
+//STEPLIB  DD DSN=Z26544.LOAD,DISP=SHR
+//SYSOUT   DD DSN=&&TEMP,
+//            DISP=(MOD,PASS)
+//*
+//ST090    EXEC PGM=BPXBATCH,REGION=0M
+//STDOUT   DD DSN=&&TEMP,
+//            DISP=(MOD,PASS)
+//STDERR   DD SYSOUT=*
+//STDIN    DD *
+//STDPARM  DD *
+SH
+cd /z/z26544;
+echo " ";
+/usr/lpp/java/current_31/bin/java -version;
+/usr/lpp/java/current_31/bin/java -cp . PrimeSieveJava 1000000;
+echo " ";
+/usr/lpp/java/current_31/bin/java -cp . PrimeSieveJava1 1000000;
+echo " ";
+/usr/lpp/java/current_64/bin/java -version;
+/usr/lpp/java/current_64/bin/java -cp . PrimeSieveJava 1000000;
+echo " ";
+/usr/lpp/java/current_64/bin/java -cp . PrimeSieveJava1 1000000;
+/*
+//*
+//ST100    EXEC PGM=ICEGENER
+//SYSUT1   DD DSN=&&TEMP,DISP=SHR
+//SYSUT2   DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//
