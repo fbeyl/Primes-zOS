@@ -1,0 +1,217 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. PRIMES.
+       ENVIRONMENT DIVISION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  CONFIG-PARAMETERS.
+           03  MAX_LIMIT                  PIC 9(9)   COMP.
+           03  SHOW_RESULTS               PIC 9(4)   COMP VALUE 0.
+           03  MAX_TIME_SEC               PIC 9(4)   COMP VALUE 5.
+
+       01  DRAG-RACE-CALCULATIONS.
+           03  AVRG                       PIC 9V9999999 COMP-3.
+           03  AVG-DISPLAY                PIC 9.9999999.
+           03  VAL-RES                    PIC X(5).
+           03  PASSES                     PIC 9(9)   COMP VALUE 0.
+           03  DURATION-SEC               PIC 9(3)V999 COMP-3.
+           03  DURATION-DISPLAY           PIC 9(3).999.
+
+       01  SIEVE-CALCULATIONS.
+           03  MAX_ROOT                   PIC 9(9)   COMP.
+           03  MAX_ROOT_INDEX             PIC 9(9)   COMP.
+           03  START-AT                   PIC 9(9)   COMP.
+           03  PRIME                      PIC 9(9)   COMP.
+           03  PRIME-COUNT                PIC 9(9)   COMP.
+           03  FACTOR                     PIC 9(9)   COMP.
+           03  STEP-SIZE                  PIC 9(9)   COMP.
+           03  I                          PIC 9(9)   COMP.
+           03  IS-EVEN                    PIC 9(1)   COMP.
+           03  BIT_SIZE                   PIC 9(9)   COMP.
+
+       01  CEELOCT.
+           03  LILIAN                      PIC S9(9) COMP.
+           03  XSECONDS                    PIC S9(18) COMP.
+           03  GREGORN                     PIC 9(17).
+           03  FILLER REDEFINES GREGORN.
+               05 FILLER                   PIC X(8).
+               05 GREGORN-H                PIC 99.
+               05 GREGORN-M                PIC 99.
+               05 GREGORN-S                PIC 99.
+               05 GREGORN-MS               PIC 999.
+           03  FC.
+               05 CEEIGZCT-RC             PIC X.
+                  88 CEE000 VALUE LOW-VALUE.
+               05 FILLER                  PIC X(11).
+           03 NOW-MS                      PIC 9(17)  COMP-3.
+           03 START-MS                    PIC 9(17)  COMP-3.
+           03 DURATION-MS                 PIC 9(4)   COMP.
+           03 MAX_TIME_MS                 PIC 9(4)   COMP.
+       01  PARMSTR                        PIC X(80).
+
+       01  CEEGTST.
+           03  HEAPID                     PIC S9(9)  BINARY.
+           03  ADDRSS                     POINTER.
+
+       LINKAGE SECTION.
+
+       01  BIT-ARRAY.
+           03 FLAG PIC X
+               OCCURS UNBOUNDED TIMES DEPENDING ON BIT_SIZE
+               INDEXED BY Z.
+
+       PROCEDURE DIVISION.
+      *
+       START-UP.
+           CALL "CEE3PRM" USING PARMSTR, FC.
+           IF NOT CEE000 OF FC
+              DISPLAY 'CEE3PRM error'
+              GOBACK
+           END-IF.
+           IF  (PARMSTR(1:1) NOT = "0")
+           AND (PARMSTR(1:1) NOT = "1")
+               DISPLAY 'Parameter error'
+               GOBACK
+           END-IF.
+           IF PARMSTR(3:9) IS NOT NUMERIC
+              DISPLAY 'Parameter error'
+              GOBACK
+           END-IF.
+
+           MOVE PARMSTR(1:1) TO SHOW_RESULTS.
+           MOVE PARMSTR(3:9) TO MAX_LIMIT.
+
+           PERFORM GET-NOW THROUGH END-GET-NOW.
+           MOVE NOW-MS TO START-MS
+           COMPUTE MAX_TIME_MS = 1000 * MAX_TIME_SEC.
+
+           COMPUTE MAX_ROOT ROUNDED = (MAX_LIMIT ** .5).
+           DIVIDE 2 INTO MAX_ROOT
+               GIVING MAX_ROOT_INDEX ROUNDED
+               REMAINDER IS-EVEN.
+           IF IS-EVEN = 0 THEN
+                   ADD -1 TO MAX_ROOT_INDEX.
+           DIVIDE 2 INTO MAX_LIMIT
+               GIVING BIT_SIZE ROUNDED
+               REMAINDER IS-EVEN.
+           IF IS-EVEN = 0 THEN
+              ADD -1 TO BIT_SIZE.
+
+           MOVE 0 TO HEAPID.
+           CALL "CEEGTST" USING HEAPID, BIT_SIZE,
+                                ADDRSS, FC.
+           IF CEE000 of FC  THEN
+               SET ADDRESS OF BIT-ARRAY TO ADDRSS
+           ELSE
+               DISPLAY "CEEGTST error "
+               GOBACK
+           END-IF.
+           MOVE HIGH-VALUES TO BIT-ARRAY.
+
+           PERFORM UNTIL (NOW-MS - START-MS) >= MAX_TIME_MS
+               PERFORM RUN_SIEVE THROUGH END-RUN_SIEVE
+               ADD 1 TO PASSES
+               PERFORM GET-NOW THROUGH END-GET-NOW
+           END-PERFORM.
+
+           PERFORM PRINT_RESULTS THROUGH END-PRINT_RESULTS.
+
+           STOP RUN.
+      *
+       RUN_SIEVE.
+           PERFORM VARYING FACTOR
+                   FROM 1 BY 1
+                   UNTIL FACTOR > MAX_ROOT_INDEX
+               SET Z TO FACTOR
+               IF FLAG (Z) = HIGH-VALUE THEN
+                   ADD FACTOR FACTOR 1 GIVING PRIME
+                   COMPUTE START-AT = (((PRIME * PRIME) - 1) / 2)
+                   PERFORM VARYING Z
+                           FROM START-AT BY PRIME
+                           UNTIL Z > BIT_SIZE
+                       MOVE LOW-VALUE TO FLAG (Z)
+                   END-PERFORM
+               END-IF
+           END-PERFORM.
+       END-RUN_SIEVE.
+           EXIT.
+      *
+       PRINT_RESULTS.
+           COMPUTE DURATION-MS = NOW-MS - START-MS
+           DIVIDE 1000 INTO DURATION-MS GIVING DURATION-SEC.
+           COMPUTE AVRG =  DURATION-SEC / PASSES.
+           PERFORM COUNT-PRIMES THROUGH END-COUNT-PRIMES.
+           PERFORM IS-VALID THROUGH END-IS-VALID.
+           MOVE DURATION-SEC TO DURATION-DISPLAY.
+           MOVE AVRG TO AVG-DISPLAY.
+           DISPLAY "Passes: " , PASSES,
+                   ", Time: ", DURATION-DISPLAY,
+                   ", Avg: ", AVG-DISPLAY,
+                   " (sec/pass), Limit: ", MAX_LIMIT,
+                   ", Count: ", PRIME-COUNT,
+                   ", Valid: ", VAL-RES.
+           DISPLAY "fvbakel_Cobol;", PASSES,
+                   ";", DURATION-SEC,
+                   ";1;algorithm=base,faithful=no,bits=8".
+           DISPLAY " ".
+       END-PRINT_RESULTS.
+           EXIT.
+
+       IS-VALID.
+           MOVE "False" TO VAL-RES.
+           IF MAX_LIMIT = 10 AND
+              PRIME-COUNT = 4 THEN MOVE "True" TO VAL-RES.
+           IF MAX_LIMIT = 100 AND
+              PRIME-COUNT = 25 THEN MOVE "True" TO VAL-RES.
+           IF MAX_LIMIT = 1000 AND
+              PRIME-COUNT = 168 THEN MOVE "True" TO VAL-RES.
+           IF MAX_LIMIT = 10000 AND
+              PRIME-COUNT = 1229 THEN MOVE "True" TO VAL-RES.
+           IF MAX_LIMIT = 100000 AND
+              PRIME-COUNT = 9592 THEN MOVE "True" TO VAL-RES.
+           IF MAX_LIMIT = 1000000 AND
+              PRIME-COUNT = 78498 THEN MOVE "True" TO VAL-RES.
+           IF MAX_LIMIT = 10000000 AND
+              PRIME-COUNT = 664579 THEN MOVE "True" TO VAL-RES.
+           IF MAX_LIMIT = 100000000 AND
+              PRIME-COUNT = 5761455 THEN MOVE "True" TO VAL-RES.
+       END-IS-VALID.
+           EXIT.
+
+       COUNT-PRIMES.
+           MOVE 2 TO PRIME
+           IF SHOW_RESULTS = 1 THEN
+               DISPLAY "PRIME found=", PRIME.
+           MOVE 1 TO PRIME-COUNT.
+           MOVE 1 TO I.
+           PERFORM COUNT-PRIMES-LOOP UNTIL I > BIT_SIZE.
+       END-COUNT-PRIMES.
+           EXIT.
+
+       COUNT-PRIMES-LOOP.
+           IF FLAG (I) = HIGH-VALUE THEN
+               ADD 1 TO PRIME-COUNT
+               ADD I I 1 GIVING PRIME
+               IF SHOW_RESULTS = 1 THEN
+                   DISPLAY "PRIME found=", PRIME.
+           ADD 1 TO I.
+       END-COUNT-PRIMES-LOOP.
+           EXIT.
+
+       GET-NOW.
+           CALL 'CEELOCT' USING LILIAN
+                                XSECONDS
+                                GREGORN
+                                FC.
+           IF CEE000 OF FC
+
+              COMPUTE NOW-MS =
+                  (GREGORN-H  * 3600000) +
+                  (GREGORN-M  *   60000) +
+                  (GREGORN-S  *    1000) +
+                  (GREGORN-MS          )
+           ELSE
+              DISPLAY 'CEELOCT error'
+              GOBACK
+           END-IF.
+       END-GET-NOW.
+           EXIT.
